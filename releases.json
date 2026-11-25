@@ -1,1 +1,146 @@
-[]
+[
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.38.8-release.apk",
+        "size": 2275776,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.8/ai-gateway-2.38.8-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:35:42Z",
+    "name": "v2.38.8",
+    "tag": "v2.38.8"
+  },
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.38.4-release.apk",
+        "size": 2259304,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.4/ai-gateway-2.38.4-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:35:46Z",
+    "name": "v2.38.4",
+    "tag": "v2.38.4"
+  },
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.38.0-release.apk",
+        "size": 2013503,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.0/ai-gateway-2.38.0-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:35:50Z",
+    "name": "v2.38.0",
+    "tag": "v2.38.0"
+  },
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.37.2-release.apk",
+        "size": 1995768,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.37.2/ai-gateway-2.37.2-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:35:53Z",
+    "name": "v2.37.2",
+    "tag": "v2.37.2"
+  },
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.37.1-release.apk",
+        "size": 1995768,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.37.1/ai-gateway-2.37.1-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:35:57Z",
+    "name": "v2.37.1",
+    "tag": "v2.37.1"
+  },
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.36.4-release.apk",
+        "size": 1995764,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.36.4/ai-gateway-2.36.4-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:36:00Z",
+    "name": "v2.36.4",
+    "tag": "v2.36.4"
+  },
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.35.4-release.apk",
+        "size": 1890617,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.35.4/ai-gateway-2.35.4-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:36:04Z",
+    "name": "v2.35.4",
+    "tag": "v2.35.4"
+  },
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.35.3-release.apk",
+        "size": 1906997,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.35.3/ai-gateway-2.35.3-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:36:07Z",
+    "name": "v2.35.3",
+    "tag": "v2.35.3"
+  },
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.32.0-release.apk",
+        "size": 1874229,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.32.0/ai-gateway-2.32.0-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:36:11Z",
+    "name": "v2.32.0",
+    "tag": "v2.32.0"
+  },
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.31.0-release.apk",
+        "size": 1857845,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.31.0/ai-gateway-2.31.0-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:36:14Z",
+    "name": "v2.31.0",
+    "tag": "v2.31.0"
+  },
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.25.2-release.apk",
+        "size": 1759541,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.25.2/ai-gateway-2.25.2-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:36:18Z",
+    "name": "v2.25.2",
+    "tag": "v2.25.2"
+  },
+  {
+    "assets": [
+      {
+        "name": "ai-gateway-2.25.1-release.apk",
+        "size": 1759377,
+        "url": "https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.25.1/ai-gateway-2.25.1-release.apk"
+      }
+    ],
+    "date": "2026-11-25T12:36:21Z",
+    "name": "v2.25.1",
+    "tag": "v2.25.1"
+  }
+]
