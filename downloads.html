@@ -40,9 +40,9 @@
   .btn:hover{filter:brightness(1.08)}
   .btn svg{width:15px;height:15px}
   details{margin-top:12px}
-  summary{cursor:pointer;font-size:13px;color:var(--accent);list-style:none}
+  summary{cursor:pointer;font-size:13px;color:var(--accent);list-style:none}summary span{padding-left:2px}
   summary::-webkit-details-marker{display:none}
-  summary:before{content:"▸ ";display:inline-block;transition:transform .15s}
+  summary{display:inline-flex;align-items:center}summary:before{content:"▸";margin-right:5px;display:inline-block}
   details[open] summary:before{content:"▾ "}
   .notes{margin:10px 0 0;padding:12px 14px;border-radius:8px;background:var(--bg);
          border:1px solid var(--border);font-size:13.5px;color:var(--muted)}
@@ -511,7 +511,7 @@
     </div></div>
 
   <footer>
-    <div>安装包文件：ai-gateway-2.38.8-release.apk、ai-gateway-2.38.4-release.apk、ai-gateway-2.38.0-release.apk、ai-gateway-2.37.2-release.apk、ai-gateway-2.37.1-release.apk、ai-gateway-2.36.4-release.apk、ai-gateway-2.35.4-release.apk、ai-gateway-2.35.3-release.apk、ai-gateway-2.32.0-release.apk、ai-gateway-2.31.0-release.apk、ai-gateway-2.25.2-release.apk、ai-gateway-2.25.1-release.apk</div>
+    <div>安装包：共 12 个文件，全部托管于本仓库 Releases，未使用上游下载地址。</div>
     <div>备份仓库：<a href="https://github.com/rdtscx/Android-AI-gateway">rdtscx/Android-AI-gateway</a> · 上游：<a href="https://github.com/xibai6668/Android-AI-gateway">xibai6668/Android-AI-gateway</a></div>
     <div class="back"><a href="./">返回站点首页</a></div>
   </footer>
