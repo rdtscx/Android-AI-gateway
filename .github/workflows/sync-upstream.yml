@@ -70,15 +70,6 @@ jobs:
       - name: Push
         run: git push origin "HEAD:main"
 
-      - name: Mirror tags add-only
-        if: steps.upstream.outputs.ok == 'true'
-        run: |
-          git fetch --tags upstream
-          git ls-remote --tags origin | cut -f2 > /tmp/remote-tags
-          for tag in $(git tag); do
-            grep -qx "refs/tags/${tag}" /tmp/remote-tags || git push origin "refs/tags/${tag}"
-          done
-
   mirror-releases:
     needs: mirror-code
     runs-on: ubuntu-latest
@@ -108,7 +99,7 @@ jobs:
               gh release view "${tag}" --repo "${up}" --json body --jq '.body // ""' > "${tmp}/body.md"
               title="$(gh release view "${tag}" --repo "${up}" --json name --jq '.name // ""')"
               [ -n "${title}" ] || title="${tag}"
-              gh release create "${tag}" --repo "${ours}" --title "${title}" --notes-file "${tmp}/body.md" --verify-tag
+              gh release create "${tag}" --repo "${ours}" --title "${title}" --notes-file "${tmp}/body.md" --target main
             fi
             ours_assets="$(gh release view "${tag}" --repo "${ours}" --json assets --jq '.assets[].name')"
             up_assets="$(gh release view "${tag}" --repo "${up}" --json assets --jq '.assets[].name')"
