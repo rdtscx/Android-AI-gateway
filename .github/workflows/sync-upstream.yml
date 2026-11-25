@@ -60,7 +60,8 @@ jobs:
         if: steps.upstream.outputs.ok == 'true'
         run: |
           # 只覆盖与新增，不删除：上游删掉的文件在本仓库继续保留
-          git checkout "${{ steps.upstream.outputs.sha }}" -- . ':(exclude).github'
+          # 排除 .github 与 README.md：前者 GITHUB_TOKEN 无权改写，后者要保留本仓库的镜像说明
+          git checkout "${{ steps.upstream.outputs.sha }}" -- . ':(exclude).github' ':(exclude)README.md'
           # GITHUB_TOKEN 不允许改写 .github/，回退该目录而不是让推送天天失败
           git reset -q HEAD -- .github
           git checkout HEAD -- .github
