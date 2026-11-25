@@ -119,9 +119,9 @@ jobs:
           set -euo pipefail
           ours="${GITHUB_REPOSITORY}"
           # 只从本仓库的 Release 生成，下载直链全部指向本仓库，上游删除后依然有效
-          gh api "repos/${ours}/releases?per_page=100" --paginate --slurp \
-            --jq 'add | map(select(.draft == false) | {tag: .tag_name, name: (.name // .tag_name), date: (.published_at // .created_at), assets: [.assets[] | {name: .name, url: .browser_download_url, size: .size}]})' \
-            > releases.json
+          gh api "repos/${ours}/releases?per_page=100" --paginate \
+            --jq '.[] | select(.draft == false) | {tag: .tag_name, name: (.name // .tag_name), date: (.published_at // .created_at), assets: [.assets[] | {name: .name, url: .browser_download_url, size: .size}]}' \
+            | jq -s '.' > releases.json
           if git diff --quiet -- releases.json; then
             echo "releases.json 无变化"
           else
