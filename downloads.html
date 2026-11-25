@@ -1,113 +1,222 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<script>
+(function(){
+  var dark=false;
+  try{dark=!!(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);}catch(e){}
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  if(window.matchMedia){var mq=window.matchMedia('(prefers-color-scheme: dark)');
+    var on=function(e){document.documentElement.setAttribute('data-theme',e.matches?'dark':'light');};
+    mq.addEventListener?mq.addEventListener('change',on):mq.addListener&&mq.addListener(on);}
+})();
+</script>
 <title>全部版本下载 · AI 聚合网关</title>
 <style>
-  :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--fg:#e6edf3;--muted:#9198a1;
-        --accent:#4493f8;--accent-soft:#1f6feb22;--green:#3fb950;--radius:12px;
-        --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace}
-  @media (prefers-color-scheme:light){
-    :root{--bg:#f6f8fa;--card:#fff;--border:#d0d7de;--fg:#1f2328;--muted:#59636e;
-          --accent:#0969da;--accent-soft:#0969da14;--green:#1a7f37}
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--fg);line-height:1.65;font-size:16px;
-       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans","PingFang SC","Microsoft YaHei",sans-serif}
-  .wrap{max-width:860px;margin:0 auto;padding:40px 20px 72px}
-  .badge{display:inline-block;font-size:12px;font-weight:600;color:var(--accent);
-         background:var(--accent-soft);border-radius:999px;padding:3px 10px}
-  h1{font-size:26px;margin:12px 0 6px;letter-spacing:-.02em}
-  .sub{color:var(--muted);margin:0;font-size:14px}
-  .toolbar{display:flex;align-items:center;justify-content:space-between;margin:22px 0 12px;font-size:13px;color:var(--muted)}
-  .toolbar a{color:var(--accent);text-decoration:none}
-  .list{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--card)}
-  .item{padding:16px 18px;border-top:1px solid var(--border)}
-  .item:first-child{border-top:none}
-  .item.newest{background:var(--accent-soft)}
-  .head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
-  .vwrap{min-width:0}
-  .ver{font-family:var(--mono);font-weight:700;font-size:17px}
-  .latest{font-size:11px;font-weight:600;color:#fff;background:var(--green);
-          border-radius:999px;padding:1px 8px;margin-left:8px;vertical-align:2px}
-  .meta{color:var(--muted);font-size:12.5px;font-family:var(--mono);margin-top:3px}
-  .btn{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#fff;
-       text-decoration:none;font-weight:600;font-size:13.5px;padding:8px 15px;border-radius:9px;white-space:nowrap}
-  .btn:hover{filter:brightness(1.08)}
-  .btn svg{width:15px;height:15px}
-  details{margin-top:12px}
-  summary{cursor:pointer;font-size:13px;color:var(--accent);list-style:none}summary span{padding-left:2px}
-  summary::-webkit-details-marker{display:none}
-  summary{display:inline-flex;align-items:center}summary:before{content:"▸";margin-right:5px;display:inline-block}
-  details[open] summary:before{content:"▾ "}
-  .notes{margin:10px 0 0;padding:12px 14px;border-radius:8px;background:var(--bg);
-         border:1px solid var(--border);font-size:13.5px;color:var(--muted)}
-  .notes ul{margin:6px 0 0;padding-left:20px}
-  .notes li{margin:3px 0}
-  .notes p{margin:6px 0}
-  .notes code{font-family:var(--mono);font-size:12.5px;background:var(--accent-soft);
-              border-radius:4px;padding:1px 5px;color:var(--fg)}
-  .empty{padding:22px 18px;color:var(--muted);font-size:14px}
-  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
-  footer a{color:var(--accent);text-decoration:none}
-  .back{margin-top:22px;font-size:13px}
-  .back a{color:var(--accent);text-decoration:none}
+:root{
+  --bg:#f7f8fa;--panel:#ffffff;--panel2:#fbfcfd;--line:#e6e9ef;--line2:#eef1f5;
+  --text:#1e2733;--muted:#5f6b7a;--dim:#8d97a5;--accent:#3f6fd8;--accent-soft:#eef3fd;--ok:#16a34a;
+  --shadow:0 1px 2px rgba(31,45,66,.03);--shadow-up:0 6px 18px rgba(24,38,63,.08);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  --topbar-h:53px;--ease:cubic-bezier(.22,.9,.3,1);
+}
+html[data-theme="dark"]{
+  --bg:#0f1319;--panel:#151b23;--panel2:#1a212b;--line:#232b36;--line2:#1e2631;
+  --text:#e6ebf2;--muted:#9aa7b8;--dim:#6b7889;--accent:#7aa2f7;
+  --accent-soft:rgba(122,162,247,.14);--ok:#4ade80;--shadow:0 1px 2px rgba(0,0,0,.3);
+  --shadow-up:0 8px 22px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html{color-scheme:light dark;scroll-behavior:smooth;scroll-padding-top:calc(var(--topbar-h) + 12px)}
+body{margin:0;line-height:1.62;color:var(--text);background:var(--bg);
+  font-family:"Segoe UI",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  transition:background .24s var(--ease),color .24s var(--ease)}
+a{color:inherit}
+.topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+html[data-theme="dark"] .topbar{background:rgba(15,19,25,.86)}
+.topbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;
+  padding:11px 22px;min-height:var(--topbar-h)}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo{width:26px;height:26px;border-radius:7px;background:var(--accent-soft);color:var(--accent);
+  font-weight:700;font-size:12px;display:grid;place-items:center;border:1px solid var(--line);flex-shrink:0}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-name{font-size:12.5px;font-weight:600}
+.brand-sub{font-size:10px;color:var(--dim)}
+.topbar .path{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--dim);
+  background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:2px 9px;white-space:nowrap}
+
+.wrap{max-width:1100px;margin:0 auto;padding:26px 22px 56px}
+header.top{padding:22px 0 8px}
+header.top h1{font-size:24px;margin:0 0 8px;letter-spacing:-.01em}
+header.top h1 .ver{font-family:var(--mono);font-size:12.5px;color:var(--accent);background:var(--accent-soft);
+  border-radius:7px;padding:2px 8px;vertical-align:3px;margin-left:8px}
+header.top p{margin:0;color:var(--muted);font-size:13px;max-width:820px}
+.badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.badge{font-size:11px;color:var(--muted);background:var(--panel);border:1px solid var(--line);
+  border-radius:999px;padding:3px 10px}
+.badge b{color:var(--text);font-weight:600}
+
+.sec-head{display:flex;align-items:center;flex-wrap:wrap;margin:26px 0 10px}
+.sec-head h2{margin:0;font-size:14.5px;font-weight:600}
+.count{font-size:10.5px;color:var(--dim);font-family:var(--mono);margin-left:7px}
+.sec-head .grow{flex:1}
+
+.index{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  overflow:hidden;box-shadow:var(--shadow)}
+.entry{border-top:1px solid var(--line2);animation:rise .34s var(--ease) both;
+  animation-delay:calc(var(--i,0) * 26ms);transition:background .16s}
+.entry:first-child{border-top:0}
+.entry:hover{background:var(--panel2)}
+.entry.open{background:var(--panel2)}
+.entry-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 18px;cursor:pointer}
+.entry-main-inner{min-width:0;flex:1;display:block}
+.vrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.vtag{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--text)}
+.tag{font-size:9.5px;color:var(--accent);background:var(--accent-soft);border-radius:999px;
+  padding:1px 7px;white-space:nowrap}
+.entry-desc{display:block;font-size:11.5px;color:var(--muted);margin-top:3px;
+  font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.entry-right{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+  color:var(--accent);background:var(--accent-soft);border:1px solid transparent;border-radius:8px;
+  padding:5px 11px;text-decoration:none;white-space:nowrap;
+  transition:background .15s,color .15s,transform .12s var(--ease)}
+.btn:hover{background:var(--accent);color:#fff}
+.btn:active{transform:scale(.94)}
+html[data-theme="dark"] .btn:hover{color:#0f1319}
+.btn svg{width:12px;height:12px}
+.btn.ghost{background:var(--panel);border-color:var(--line);color:var(--muted);font-weight:500}
+.btn.ghost:hover{background:var(--accent);color:#fff;border-color:transparent}
+.tgl{font:inherit;font-size:10.5px;color:var(--muted);background:var(--panel);
+  border:1px solid var(--line);border-radius:8px;padding:4px 9px;cursor:pointer;
+  transition:border-color .15s,color .15s,transform .12s var(--ease)}
+.tgl:hover{color:var(--text);border-color:var(--accent-soft)}
+.chev{display:inline-block;width:6px;height:6px;border-top:1.5px solid currentColor;
+  border-right:1.5px solid currentColor;transform:rotate(45deg);margin-left:4px;vertical-align:1px;
+  transition:transform .2s var(--ease)}
+.entry.open .chev{transform:rotate(135deg)}
+
+.notes{max-height:0;overflow:hidden;transition:max-height .32s var(--ease)}
+.entry.open .notes{max-height:1400px}
+.notes-inner{padding:0 18px 15px;font-size:12.5px;color:var(--muted);line-height:1.7}
+.notes-inner ul{margin:6px 0 0;padding-left:18px}
+.notes-inner li{margin:3px 0}
+.notes-inner p{margin:5px 0}
+.notes-inner code{font-family:var(--mono);font-size:11.5px;background:var(--accent-soft);
+  color:var(--accent);border-radius:4px;padding:1px 5px}
+.notes-inner .cap{font-size:10.5px;color:var(--dim);font-family:var(--mono);
+  text-transform:uppercase;letter-spacing:.03em}
+
+.files{display:flex;flex-wrap:wrap;gap:6px;padding:2px 18px 15px}
+.files .f{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-family:var(--mono);
+  color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:7px;
+  padding:3px 8px;text-decoration:none;transition:color .15s,border-color .15s,transform .12s var(--ease)}
+.files .f:hover{color:var(--accent);border-color:var(--accent-soft)}
+.files .f:active{transform:scale(.96)}
+.files .f b{font-weight:600;color:var(--text)}
+.files .f.plugin{background:var(--panel2)}
+
+footer{color:var(--dim);font-size:10.5px;margin-top:28px;line-height:1.8;
+  border-top:1px solid var(--line);padding-top:14px}
+footer p{margin:3px 0}
+footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);
+  transition:color .15s,border-color .15s}
+footer a:hover{color:var(--accent);border-bottom-color:var(--accent-soft)}
+.back{margin-top:14px;font-size:11.5px;display:flex;flex-wrap:wrap;gap:14px}
+.back a{color:var(--accent);border-bottom-color:transparent}
+.back a:hover{border-bottom-color:var(--accent-soft)}
+
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .entry,.chev,.btn,.files .f,.tgl,.notes,.topbar{animation:none!important;transition:none!important}
+  .notes{max-height:none}
+}
+@media (max-width:640px){
+  .entry-desc{white-space:normal}
+  .entry-right{flex-direction:column;align-items:flex-end}
+  .entry-right .btn{order:-1}
+}
 </style>
 </head>
 <body>
+<div class="topbar"><div class="topbar-inner">
+  <a class="brand" href="https://rdtscx.github.io/">
+    <span class="logo">R</span>
+    <span class="brand-text"><span class="brand-name">rdtscx</span><span class="brand-sub">安装包下载</span></span>
+  </a>
+  <span class="path">/Android-AI-gateway/downloads.html</span>
+</div></div>
+
 <div class="wrap">
-  <header>
-    <span class="badge">安装包下载页</span>
-    <h1>AI 聚合网关 · 全部版本</h1>
-    <p class="sub">把 Android 手机变成私有的 AI 模型聚合服务器</p>
+  <header class="top">
+    <h1>AI 聚合网关<span class="ver">v2.38.8</span></h1>
+    <p>把 Android 手机变成私有的 AI 模型聚合服务器，将多家上游账号统一翻译为 OpenAI 兼容端点。</p>
+    <div class="badges">
+      <span class="badge">共 <b>12</b> 个版本</span>
+      <span class="badge">最新 <b>v2.38.8</b></span>
+      <span class="badge">更新于 <b>2026-11-25</b></span>
+      <span class="badge">安装包托管 <b>本仓库 Releases</b></span>
+    </div>
   </header>
 
-  <div class="toolbar">
-    <span>共 12 个版本，按版本号从新到旧排列</span>
-    <a href="./">← 返回站点首页</a>
-  </div>
-
-  <div class="list">
-    <div class="item newest" id="v2.38.8">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.38.8<span class="latest">最新</span></div>
-          <div class="meta">2026-11-25 · 2.2 MB · ai-gateway-2.38.8-release.apk</div>
+  <div class="sec-head"><h2>全部版本</h2><span class="count">12 / 12</span></div>
+  <div class="index">
+    <div class="entry" style="--i:0">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.38.8</span><span class="tag">最新</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 2.2 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.8/ai-gateway-2.38.8-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.38.8</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.8/ai-gateway-2.38.8-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.38.8</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.38.8）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.8/ai-gateway-2.38.8-release.apk" download title="ai-gateway-2.38.8-release.apk">ai-gateway-2.38.8-release.apk <b>2.2 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（2.38.8）</p>
 <ul>
 <li>无应用相关变化</li>
 </ul>
 <p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
-<p>应用内更新已指向本仓库的 Release。</p></div></details>
+<p>应用内更新已指向本仓库的 Release。</p></div></div>
     </div>
-    <div class="item" id="v2.38.4">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.38.4</div>
-          <div class="meta">2026-11-25 · 2.2 MB · ai-gateway-2.38.4-release.apk</div>
+    <div class="entry" style="--i:1">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.38.4</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 2.2 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.4/ai-gateway-2.38.4-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.38.4</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.4/ai-gateway-2.38.4-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.38.4</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.38.4）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.4/ai-gateway-2.38.4-release.apk" download title="ai-gateway-2.38.4-release.apk">ai-gateway-2.38.4-release.apk <b>2.2 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（2.38.4）</p>
 <ul>
 <li>无应用相关变化</li>
 </ul>
 <p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
-<p>应用内更新已指向本仓库的 Release。</p></div></details>
+<p>应用内更新已指向本仓库的 Release。</p></div></div>
     </div>
-    <div class="item" id="v2.38.0">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.38.0</div>
-          <div class="meta">2026-11-25 · 1.9 MB · ai-gateway-2.38.0-release.apk</div>
+    <div class="entry" style="--i:2">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.38.0</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 1.9 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.0/ai-gateway-2.38.0-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.38.0</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.0/ai-gateway-2.38.0-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.38.0</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.38.0）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.0/ai-gateway-2.38.0-release.apk" download title="ai-gateway-2.38.0-release.apk">ai-gateway-2.38.0-release.apk <b>1.9 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（2.38.0）</p>
 <ul>
 <li>chore(deps): bump androidx.browser:browser (#24)</li>
 <li>fix(anthropic): 修 /v1/messages 流式转发崩溃（JsonNull cannot be cast to JsonObject）</li>
@@ -118,17 +227,21 @@
 <li>fix(security): 局域网暴露时无 Key 调用只对本机生效，CORS 支持白名单</li>
 </ul>
 <p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
-<p>应用内更新已指向本仓库的 Release。</p></div></details>
+<p>应用内更新已指向本仓库的 Release。</p></div></div>
     </div>
-    <div class="item" id="v2.37.2">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.37.2</div>
-          <div class="meta">2026-11-25 · 1.9 MB · ai-gateway-2.37.2-release.apk</div>
+    <div class="entry" style="--i:3">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.37.2</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 1.9 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.37.2/ai-gateway-2.37.2-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.37.2</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.37.2/ai-gateway-2.37.2-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.37.2</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.37.2）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.37.2/ai-gateway-2.37.2-release.apk" download title="ai-gateway-2.37.2-release.apk">ai-gateway-2.37.2-release.apk <b>1.9 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（2.37.2）</p>
 <ul>
 <li>chore(release): 版本号升到 2.37.2</li>
 <li>feat(gateway): 新增 /v1/messages（Anthropic 协议）与本地隐私脱敏</li>
@@ -136,32 +249,40 @@
 <li>fix(codebuddy): 打散 DeepSeek Runtime 等宿主指纹，修掉 11128 渠道拦截</li>
 </ul>
 <p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
-<p>应用内更新已指向本仓库的 Release。</p></div></details>
+<p>应用内更新已指向本仓库的 Release。</p></div></div>
     </div>
-    <div class="item" id="v2.37.1">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.37.1</div>
-          <div class="meta">2026-11-25 · 1.9 MB · ai-gateway-2.37.1-release.apk</div>
+    <div class="entry" style="--i:4">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.37.1</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 1.9 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.37.1/ai-gateway-2.37.1-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.37.1</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.37.1/ai-gateway-2.37.1-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.37.1</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.37.1）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.37.1/ai-gateway-2.37.1-release.apk" download title="ai-gateway-2.37.1-release.apk">ai-gateway-2.37.1-release.apk <b>1.9 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（2.37.1）</p>
 <ul>
 <li>无应用相关变化</li>
 </ul>
 <p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
-<p>应用内更新已指向本仓库的 Release。</p></div></details>
+<p>应用内更新已指向本仓库的 Release。</p></div></div>
     </div>
-    <div class="item" id="v2.36.4">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.36.4</div>
-          <div class="meta">2026-11-25 · 1.9 MB · ai-gateway-2.36.4-release.apk</div>
+    <div class="entry" style="--i:5">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.36.4</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 1.9 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.36.4/ai-gateway-2.36.4-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.36.4</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.36.4/ai-gateway-2.36.4-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.36.4</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.36.4）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.36.4/ai-gateway-2.36.4-release.apk" download title="ai-gateway-2.36.4-release.apk">ai-gateway-2.36.4-release.apk <b>1.9 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（2.36.4）</p>
 <ul>
 <li>fix(theme): 移除外观主题页重复的明暗模式</li>
 <li>fix(home): 修复玻璃底栏无模糊，底栏加高，供应商改称供应</li>
@@ -171,32 +292,40 @@
 <li>refactor(home): 拖拽排序改用 Calvin-LL/Reorderable 库</li>
 </ul>
 <p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
-<p>应用内更新已指向本仓库的 Release。</p></div></details>
+<p>应用内更新已指向本仓库的 Release。</p></div></div>
     </div>
-    <div class="item" id="v2.35.4">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.35.4</div>
-          <div class="meta">2026-11-25 · 1.8 MB · ai-gateway-2.35.4-release.apk</div>
+    <div class="entry" style="--i:6">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.35.4</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 1.8 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.35.4/ai-gateway-2.35.4-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.35.4</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.35.4/ai-gateway-2.35.4-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.35.4</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.35.4）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.35.4/ai-gateway-2.35.4-release.apk" download title="ai-gateway-2.35.4-release.apk">ai-gateway-2.35.4-release.apk <b>1.8 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（2.35.4）</p>
 <ul>
 <li>fix(home): 拖动中断与双重位移，重写拖拽手势</li>
 </ul>
 <p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
-<p>应用内更新已指向本仓库的 Release。</p></div></details>
+<p>应用内更新已指向本仓库的 Release。</p></div></div>
     </div>
-    <div class="item" id="v2.35.3">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.35.3</div>
-          <div class="meta">2026-11-25 · 1.8 MB · ai-gateway-2.35.3-release.apk</div>
+    <div class="entry" style="--i:7">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.35.3</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 1.8 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.35.3/ai-gateway-2.35.3-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.35.3</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.35.3/ai-gateway-2.35.3-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.35.3</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.35.3）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.35.3/ai-gateway-2.35.3-release.apk" download title="ai-gateway-2.35.3-release.apk">ai-gateway-2.35.3-release.apk <b>1.8 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（2.35.3）</p>
 <ul>
 <li>fix(home): 编辑态改用 LazyColumn 真实重排，消除重叠与空白</li>
 <li>fix(home): 编辑态组件重叠与空白，重做让位补偿</li>
@@ -208,17 +337,21 @@
 <li>feat(proxy): 代理支持多套配置、按区域选择与连通性测试</li>
 </ul>
 <p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
-<p>应用内更新已指向本仓库的 Release。</p></div></details>
+<p>应用内更新已指向本仓库的 Release。</p></div></div>
     </div>
-    <div class="item" id="v2.32.0">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.32.0</div>
-          <div class="meta">2026-11-25 · 1.8 MB · ai-gateway-2.32.0-release.apk</div>
+    <div class="entry" style="--i:8">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.32.0</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 1.8 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.32.0/ai-gateway-2.32.0-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.32.0</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.32.0/ai-gateway-2.32.0-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.32.0</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.32.0）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.32.0/ai-gateway-2.32.0-release.apk" download title="ai-gateway-2.32.0-release.apk">ai-gateway-2.32.0-release.apk <b>1.8 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（2.32.0）</p>
 <ul>
 <li>chore(release): versionCode 211（v2.32.0）</li>
 <li>fix(codebuddy): 签到 4xx「今天已签到」归一为成功</li>
@@ -226,17 +359,21 @@
 <li>feat(checkin): 网关服务运行时每日自动签到</li>
 </ul>
 <p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
-<p>应用内更新已指向本仓库的 Release。</p></div></details>
+<p>应用内更新已指向本仓库的 Release。</p></div></div>
     </div>
-    <div class="item" id="v2.31.0">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.31.0</div>
-          <div class="meta">2026-11-25 · 1.8 MB · ai-gateway-2.31.0-release.apk</div>
+    <div class="entry" style="--i:9">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.31.0</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 1.8 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.31.0/ai-gateway-2.31.0-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.31.0</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.31.0/ai-gateway-2.31.0-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.31.0</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（v2.25.2 → v2.31.0）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.31.0/ai-gateway-2.31.0-release.apk" download title="ai-gateway-2.31.0-release.apk">ai-gateway-2.31.0-release.apk <b>1.8 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（v2.25.2 → v2.31.0）</p>
 <ul>
 <li>fork: 应用内更新源指向本仓库</li>
 <li>chore(release): versionCode 210（v2.31.0）</li>
@@ -270,17 +407,21 @@
 <li>refactor(gateway): 选号循环用许可状态驱动，消除恒假分支</li>
 <li>chore(release): versionCode 201（v2.24.3）</li>
 <li>fix(gateway): 并发连接不再整体卡死，多账号按在途余量分流</li>
-</ul></div></details>
+</ul></div></div>
     </div>
-    <div class="item" id="v2.25.2">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.25.2</div>
-          <div class="meta">2026-11-25 · 1.7 MB · ai-gateway-2.25.2-release.apk</div>
+    <div class="entry" style="--i:10">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.25.2</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 1.7 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.25.2/ai-gateway-2.25.2-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.25.2</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.25.2/ai-gateway-2.25.2-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.25.2</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（v2.25.1 → v2.25.2）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.25.2/ai-gateway-2.25.2-release.apk" download title="ai-gateway-2.25.2-release.apk">ai-gateway-2.25.2-release.apk <b>1.7 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（v2.25.1 → v2.25.2）</p>
 <ul>
 <li>fix(watchdog): 探活写死 IPv4 回环——之前用 ::1 探 127.0.0.1 的 server，必然误杀</li>
 <li>fix(watchdog): 挂起期间的探活超时不再被误判成引擎死亡</li>
@@ -292,17 +433,21 @@
 <li>fix(trae): 签到按 enable 提前拦，9090 映射为活动侧不可用（v2.24.2）</li>
 <li>fix(trae): 签到失败提示带上游业务码（v2.24.1）</li>
 <li>feat(codebuddy): 任务达标自动领取，去掉手动领取按钮</li>
-</ul></div></details>
+</ul></div></div>
     </div>
-    <div class="item" id="v2.25.1">
-      <div class="head">
-        <div class="vwrap">
-          <div class="ver">v2.25.1</div>
-          <div class="meta">2026-11-25 · 1.7 MB · ai-gateway-2.25.1-release.apk</div>
+    <div class="entry" style="--i:11">
+      <div class="entry-row">
+        <div class="entry-main-inner">
+          <div class="vrow"><span class="vtag">v2.25.1</span><span class="tag">1 个文件</span></div>
+          <span class="entry-desc">2026-11-25 · 1 个文件 · 1.7 MB</span>
         </div>
-        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.25.1/ai-gateway-2.25.1-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.25.1</span></a>
+        <div class="entry-right">
+          <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.25.1/ai-gateway-2.25.1-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>下载 v2.25.1</a>
+          <button class="tgl" type="button" aria-expanded="false">更新记录<span class="chev"></span></button>
+        </div>
       </div>
-      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（首次发布 → v2.25.1）</b></p>
+      <div class="files"><a class="f" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.25.1/ai-gateway-2.25.1-release.apk" download title="ai-gateway-2.25.1-release.apk">ai-gateway-2.25.1-release.apk <b>1.7 MB</b></a></div>
+      <div class="notes"><div class="notes-inner"><p class="cap">更新内容（首次发布 → v2.25.1）</p>
 <ul>
 <li>fix(login): 登录期间拉起前台服务，保住本地回调端口</li>
 <li>fix(login): 登录页改用 Custom Tab，修复授权后回调卡死</li>
@@ -499,14 +644,26 @@
 <li>模型目录流式加载：各供应商就绪即增量交付，不再等最慢者聚合完毕</li>
 <li>ai-gateway 0.1.40–0.1.76：容灾 failover、安全防护、Gemini 原生端点、多模态与任务中心（基线入库）</li>
 <li>ai-gateway 0.1.39：多供应商聚合网关（Trae/Loomy/WorkBuddy/Antigravity/自定义）</li>
-</ul></div></details>
+</ul></div></div>
     </div></div>
 
   <footer>
-    <div>共 12 个安装包，托管于本仓库 Releases。</div>
-    <div>备份仓库：<a href="https://github.com/rdtscx/Android-AI-gateway">rdtscx/Android-AI-gateway</a> · 上游：<a href="https://github.com/xibai6668/Android-AI-gateway">xibai6668/Android-AI-gateway</a></div>
-    <div class="back"><a href="./">返回站点首页</a></div>
+    <p>仓库：<a href="https://github.com/Android-AI-gateway">Android-AI-gateway</a> · 上游：<a href="https://github.com/alarmedvine/Android-AI-gateway">alarmedvine/Android-AI-gateway</a></p>
+    <div class="back">
+      <a href="./">← 返回站点首页</a>
+      <a href="https://github.com/Android-AI-gateway/releases">仓库 Releases</a>
+      <a href="https://rdtscx.github.io/">返回主站</a>
+    </div>
   </footer>
 </div>
+<script>
+document.querySelectorAll('.entry-row').forEach(function(row){
+  row.addEventListener('click',function(e){
+    if(e.target.closest('.btn')) return;
+    var item=row.parentElement; item.classList.toggle('open');
+    var t=item.querySelector('.tgl'); if(t) t.setAttribute('aria-expanded', item.classList.contains('open'));
+  });
+});
+</script>
 </body>
 </html>
