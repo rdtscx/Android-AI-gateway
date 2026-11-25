@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 聚合网关 · 备份站</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-soft: #151b23;
+    --card: #161b22;
+    --border: #30363d;
+    --fg: #e6edf3;
+    --fg-muted: #9198a1;
+    --accent: #4493f8;
+    --accent-soft: #1f6feb22;
+    --green: #3fb950;
+    --green-soft: #23863622;
+    --radius: 12px;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f8fa;
+      --bg-soft: #ffffff;
+      --card: #ffffff;
+      --border: #d0d7de;
+      --fg: #1f2328;
+      --fg-muted: #59636e;
+      --accent: #0969da;
+      --accent-soft: #0969da14;
+      --green: #1a7f37;
+      --green-soft: #1a7f3714;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 40px 20px 72px; }
+  header { margin-bottom: 28px; }
+  .badge {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+    border: 1px solid var(--border); margin-bottom: 14px;
+  }
+  h1 { font-size: 30px; line-height: 1.25; margin: 0 0 10px; letter-spacing: -0.02em; }
+  .sub { color: var(--fg-muted); font-size: 15px; margin: 0; }
+  .sub code { font-family: var(--mono); font-size: 13px; background: var(--bg-soft); padding: 1px 6px; border-radius: 6px; border: 1px solid var(--border); }
+  .note {
+    margin: 22px 0; padding: 14px 16px; border-radius: var(--radius);
+    background: var(--green-soft); border: 1px solid var(--border);
+    color: var(--fg); font-size: 14px;
+  }
+  .note b { color: var(--green); }
+  .latest {
+    margin: 26px 0; padding: 22px; border-radius: var(--radius);
+    background: var(--card); border: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .latest .meta { min-width: 0; }
+  .latest .ver { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  .latest .date { color: var(--fg-muted); font-size: 13px; margin-top: 2px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green); color: #fff; text-decoration: none;
+    font-weight: 600; font-size: 15px; padding: 11px 20px; border-radius: 10px;
+    border: 1px solid transparent; white-space: nowrap;
+    transition: filter .15s ease;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn svg { width: 18px; height: 18px; }
+  h2 { font-size: 18px; margin: 36px 0 14px; }
+  .list { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--card); }
+  .row {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 14px 18px; border-top: 1px solid var(--border);
+  }
+  .row:first-child { border-top: none; }
+  .row .r-ver { font-weight: 600; font-family: var(--mono); font-size: 14px; }
+  .row .r-date { color: var(--fg-muted); font-size: 12px; margin-top: 1px; }
+  .row .r-name { color: var(--fg-muted); font-size: 12px; font-family: var(--mono); }
+  .row a.dl {
+    color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 500;
+    padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); white-space: nowrap;
+  }
+  .row a.dl:hover { background: var(--accent-soft); }
+  .empty { padding: 22px 18px; color: var(--fg-muted); font-size: 14px; }
+  footer { margin-top: 44px; color: var(--fg-muted); font-size: 13px; border-top: 1px solid var(--border); padding-top: 18px; }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  .src { color: var(--fg-muted); font-size: 13px; margin-top: 6px; word-break: break-all; }
+  .skeleton { height: 60px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">镜像备份站</span>
+    <h1>AI 聚合网关</h1>
+    <p class="sub">把 Android 手机变成私有的 AI 模型聚合服务器，将多家上游账号统一翻译为 OpenAI 兼容端点。</p>
+  </header>
+
+  <div class="note">
+    <b>下载长期有效。</b>下载包已完整镜像到本仓库（<code>rdtscx/Android-AI-gateway</code>），
+    即使原始上游仓库被删除或改名，这里的下载链接依然可用。
+  </div>
+
+  <div id="latest" class="latest">
+    <div class="meta">
+      <div class="ver">加载中…</div>
+      <div class="date">正在读取版本信息</div>
+    </div>
+  </div>
+
+  <h2>全部版本</h2>
+  <div id="list" class="list">
+    <div class="empty">加载中…</div>
+  </div>
+
+  <footer>
+    <div>本页为个人镜像备份，源码与安装包均镜像自上游项目。</div>
+    <div class="src">上游：<a href="https://github.com/xibai6668/Android-AI-gateway">xibai6668/Android-AI-gateway</a> ·
+      镜像仓库：<a href="https://github.com/rdtscx/Android-AI-gateway">rdtscx/Android-AI-gateway</a></div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var DL_ICON = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>';
+
+  function verKey(tag) {
+    var m = String(tag || '').match(/\d+/g);
+    return m ? m.map(Number) : [];
+  }
+  function cmp(a, b) {
+    var x = verKey(a), y = verKey(b), n = Math.max(x.length, y.length);
+    for (var i = 0; i < n; i++) {
+      var d = (x[i] || 0) - (y[i] || 0);
+      if (d) return d;
+    }
+    return 0;
+  }
+  function fmtDate(s) {
+    if (!s) return '';
+    var d = new Date(s);
+    if (isNaN(d)) return '';
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function pickApk(assets) {
+    if (!assets || !assets.length) return null;
+    var exts = ['.apk', '.aab', '.xapk', '.zip'];
+    for (var i = 0; i < exts.length; i++) {
+      for (var j = 0; j < assets.length; j++) {
+        if (assets[j].name.toLowerCase().endsWith(exts[i])) return assets[j];
+      }
+    }
+    return assets[0];
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  function render(releases) {
+    var listEl = document.getElementById('list');
+    var latestEl = document.getElementById('latest');
+    if (!releases || !releases.length) {
+      listEl.innerHTML = '<div class="empty">暂无已镜像的版本。</div>';
+      latestEl.querySelector('.ver').textContent = '暂无版本';
+      latestEl.querySelector('.date').textContent = '等待首次镜像同步';
+      return;
+    }
+    releases.sort(function (a, b) { return cmp(b.tag, a.tag); });
+
+    var top = releases[0], topAsset = pickApk(top.assets);
+    latestEl.innerHTML = '';
+    var meta = el('div', 'meta');
+    meta.appendChild(el('div', 'ver', top.tag));
+    meta.appendChild(el('div', 'date', '最新版本 · ' + (fmtDate(top.date) || '未知日期')));
+    latestEl.appendChild(meta);
+    if (topAsset) {
+      var btn = el('a', 'btn');
+      btn.href = topAsset.url;
+      btn.innerHTML = DL_ICON + '<span>下载 ' + topAsset.name + '</span>';
+      latestEl.appendChild(btn);
+    }
+
+    listEl.innerHTML = '';
+    releases.forEach(function (r) {
+      var asset = pickApk(r.assets);
+      var row = el('div', 'row');
+      var left = el('div');
+      left.appendChild(el('div', 'r-ver', r.tag));
+      left.appendChild(el('div', 'r-date', fmtDate(r.date) || ''));
+      row.appendChild(left);
+      if (asset) {
+        var a = el('a', 'dl', '下载');
+        a.href = asset.url;
+        a.title = asset.name;
+        row.appendChild(a);
+      } else {
+        row.appendChild(el('span', 'r-name', '无资产'));
+      }
+      listEl.appendChild(row);
+    });
+  }
+
+  fetch('releases.json', { cache: 'no-cache' })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (data) { render(Array.isArray(data) ? data : (data.releases || [])); })
+    .catch(function () {
+      document.getElementById('list').innerHTML =
+        '<div class="empty">读取 releases.json 失败，请直接访问 ' +
+        '<a href="https://github.com/rdtscx/Android-AI-gateway/releases">镜像仓库 Releases</a>。</div>';
+    });
+})();
+</script>
+</body>
+</html>
