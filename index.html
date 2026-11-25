@@ -94,6 +94,12 @@
   }
   .row a.dl:hover { background: var(--accent-soft); }
   .empty { padding: 22px 18px; color: var(--fg-muted); font-size: 14px; }
+  .more { margin-top: 22px; }
+  .more-btn {
+    display: inline-block; color: var(--accent); text-decoration: none; font-size: 14px;
+    border: 1px solid var(--border); border-radius: 10px; padding: 9px 16px; background: var(--card);
+  }
+  .more-btn:hover { background: var(--accent-soft); }
   footer { margin-top: 44px; color: var(--fg-muted); font-size: 13px; border-top: 1px solid var(--border); padding-top: 18px; }
   footer a { color: var(--accent); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
@@ -109,11 +115,6 @@
     <p class="sub">把 Android 手机变成私有的 AI 模型聚合服务器，将多家上游账号统一翻译为 OpenAI 兼容端点。</p>
   </header>
 
-  <div class="note">
-    <b>下载长期有效。</b>下载包已完整镜像到本仓库（<code>rdtscx/Android-AI-gateway</code>），
-    即使原始上游仓库被删除或改名，这里的下载链接依然可用。
-  </div>
-
   <div id="latest" class="latest">
     <div class="meta">
       <div class="ver">加载中…</div>
@@ -121,13 +122,13 @@
     </div>
   </div>
 
-  <h2>全部版本</h2>
-  <div id="list" class="list">
-    <div class="empty">加载中…</div>
+  <div class="more">
+    <a class="more-btn" href="downloads.html">全部版本与更新记录 →</a>
   </div>
 
   <footer>
     <div>本页为个人镜像备份，源码与安装包均镜像自上游项目。</div>
+    <div>安装包与更新记录：<a href="downloads.html">全部版本下载页</a></div>
     <div class="src">上游：<a href="https://github.com/xibai6668/Android-AI-gateway">xibai6668/Android-AI-gateway</a> ·
       镜像仓库：<a href="https://github.com/rdtscx/Android-AI-gateway">rdtscx/Android-AI-gateway</a></div>
   </footer>
@@ -173,56 +174,33 @@
   }
 
   function render(releases) {
-    var listEl = document.getElementById('list');
     var latestEl = document.getElementById('latest');
     if (!releases || !releases.length) {
-      listEl.innerHTML = '<div class="empty">暂无已镜像的版本。</div>';
       latestEl.querySelector('.ver').textContent = '暂无版本';
-      latestEl.querySelector('.date').textContent = '等待首次镜像同步';
+      latestEl.querySelector('.date').textContent = '暂无已备份的安装包，请前往下载页查看';
       return;
     }
     releases.sort(function (a, b) { return cmp(b.tag, a.tag); });
 
-    var top = releases[0], topAsset = pickApk(top.assets);
+    var top = releases[0];
     latestEl.innerHTML = '';
     var meta = el('div', 'meta');
     meta.appendChild(el('div', 'ver', top.tag));
     meta.appendChild(el('div', 'date', '最新版本 · ' + (fmtDate(top.date) || '未知日期')));
     latestEl.appendChild(meta);
-    if (topAsset) {
-      var btn = el('a', 'btn');
-      btn.href = topAsset.url;
-      btn.innerHTML = DL_ICON + '<span>下载 ' + topAsset.name + '</span>';
-      latestEl.appendChild(btn);
-    }
-
-    listEl.innerHTML = '';
-    releases.forEach(function (r) {
-      var asset = pickApk(r.assets);
-      var row = el('div', 'row');
-      var left = el('div');
-      left.appendChild(el('div', 'r-ver', r.tag));
-      left.appendChild(el('div', 'r-date', fmtDate(r.date) || ''));
-      row.appendChild(left);
-      if (asset) {
-        var a = el('a', 'dl', '下载');
-        a.href = asset.url;
-        a.title = asset.name;
-        row.appendChild(a);
-      } else {
-        row.appendChild(el('span', 'r-name', '无资产'));
-      }
-      listEl.appendChild(row);
-    });
+    var btn = el('a', 'btn');
+    btn.href = 'downloads.html';
+    btn.innerHTML = DL_ICON + '<span>下载最新版本 ' + top.tag + '</span>';
+    latestEl.appendChild(btn);
   }
 
   fetch('releases.json', { cache: 'no-cache' })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (data) { render(Array.isArray(data) ? data : (data.releases || [])); })
     .catch(function () {
-      document.getElementById('list').innerHTML =
-        '<div class="empty">读取 releases.json 失败，请直接访问 ' +
-        '<a href="https://github.com/rdtscx/Android-AI-gateway/releases">镜像仓库 Releases</a>。</div>';
+      var latestEl = document.getElementById('latest');
+      latestEl.innerHTML = '<div class="meta"><div class="ver">版本信息读取失败</div>' +
+        '<div class="date">请直接打开 <a href="downloads.html">全部版本下载页</a></div></div>';
     });
 })();
 </script>

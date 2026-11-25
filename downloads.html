@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>全部版本下载 · AI 聚合网关</title>
+<style>
+  :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--fg:#e6edf3;--muted:#9198a1;
+        --accent:#4493f8;--accent-soft:#1f6feb22;--green:#3fb950;--radius:12px;
+        --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace}
+  @media (prefers-color-scheme:light){
+    :root{--bg:#f6f8fa;--card:#fff;--border:#d0d7de;--fg:#1f2328;--muted:#59636e;
+          --accent:#0969da;--accent-soft:#0969da14;--green:#1a7f37}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);line-height:1.65;font-size:16px;
+       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans","PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:860px;margin:0 auto;padding:40px 20px 72px}
+  .badge{display:inline-block;font-size:12px;font-weight:600;color:var(--accent);
+         background:var(--accent-soft);border-radius:999px;padding:3px 10px}
+  h1{font-size:26px;margin:12px 0 6px;letter-spacing:-.02em}
+  .sub{color:var(--muted);margin:0;font-size:14px}
+  .note{margin:20px 0 26px;padding:14px 16px;border:1px solid var(--border);border-left:3px solid var(--accent);
+        border-radius:8px;background:var(--card);font-size:13.5px;color:var(--muted)}
+  .note b{color:var(--fg)}
+  .toolbar{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px;font-size:13px;color:var(--muted)}
+  .toolbar a{color:var(--accent);text-decoration:none}
+  .list{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--card)}
+  .item{padding:16px 18px;border-top:1px solid var(--border)}
+  .item:first-child{border-top:none}
+  .item.newest{background:var(--accent-soft)}
+  .head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .vwrap{min-width:0}
+  .ver{font-family:var(--mono);font-weight:700;font-size:17px}
+  .latest{font-size:11px;font-weight:600;color:#fff;background:var(--green);
+          border-radius:999px;padding:1px 8px;margin-left:8px;vertical-align:2px}
+  .meta{color:var(--muted);font-size:12.5px;font-family:var(--mono);margin-top:3px}
+  .btn{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#fff;
+       text-decoration:none;font-weight:600;font-size:13.5px;padding:8px 15px;border-radius:9px;white-space:nowrap}
+  .btn:hover{filter:brightness(1.08)}
+  .btn svg{width:15px;height:15px}
+  details{margin-top:12px}
+  summary{cursor:pointer;font-size:13px;color:var(--accent);list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary:before{content:"▸ ";display:inline-block;transition:transform .15s}
+  details[open] summary:before{content:"▾ "}
+  .notes{margin:10px 0 0;padding:12px 14px;border-radius:8px;background:var(--bg);
+         border:1px solid var(--border);font-size:13.5px;color:var(--muted)}
+  .notes ul{margin:6px 0 0;padding-left:20px}
+  .notes li{margin:3px 0}
+  .notes p{margin:6px 0}
+  .notes code{font-family:var(--mono);font-size:12.5px;background:var(--accent-soft);
+              border-radius:4px;padding:1px 5px;color:var(--fg)}
+  .empty{padding:22px 18px;color:var(--muted);font-size:14px}
+  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+  footer a{color:var(--accent);text-decoration:none}
+  .back{margin-top:22px;font-size:13px}
+  .back a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">安装包下载页</span>
+    <h1>AI 聚合网关 · 全部版本</h1>
+    <p class="sub">把 Android 手机变成私有的 AI 模型聚合服务器</p>
+  </header>
+
+  <div class="note">
+    <b>下载链接全部指向本备份仓库。</b>所有安装包已上传至 <code>rdtscx/Android-AI-gateway</code> 的 Releases，
+    页面内每个版本均使用本仓库地址，不使用上游项目的下载链接；上游仓库删除或改名不影响此处下载。
+  </div>
+
+  <div class="toolbar">
+    <span>共 12 个版本，按版本号从新到旧排列</span>
+    <a href="./">← 返回站点首页</a>
+  </div>
+
+  <div class="list">
+    <div class="item newest" id="v2.38.8">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.38.8<span class="latest">最新</span></div>
+          <div class="meta">2026-11-25 · 2.2 MB · ai-gateway-2.38.8-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.8/ai-gateway-2.38.8-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.38.8</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.38.8）</b></p>
+<ul>
+<li>无应用相关变化</li>
+</ul>
+<p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
+<p>应用内更新已指向本仓库的 Release。</p></div></details>
+    </div>
+    <div class="item" id="v2.38.4">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.38.4</div>
+          <div class="meta">2026-11-25 · 2.2 MB · ai-gateway-2.38.4-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.4/ai-gateway-2.38.4-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.38.4</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.38.4）</b></p>
+<ul>
+<li>无应用相关变化</li>
+</ul>
+<p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
+<p>应用内更新已指向本仓库的 Release。</p></div></details>
+    </div>
+    <div class="item" id="v2.38.0">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.38.0</div>
+          <div class="meta">2026-11-25 · 1.9 MB · ai-gateway-2.38.0-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.38.0/ai-gateway-2.38.0-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.38.0</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.38.0）</b></p>
+<ul>
+<li>chore(deps): bump androidx.browser:browser (#24)</li>
+<li>fix(anthropic): 修 /v1/messages 流式转发崩溃（JsonNull cannot be cast to JsonObject）</li>
+<li>chore(release): 版本号升到 2.38.0</li>
+<li>chore(quality): 接入 detekt 静态检查 + 补路由/选号单测</li>
+<li>feat(app): 崩溃日志页（折叠列表 + 导出 .log + 崩溃后自动展开）</li>
+<li>feat(chatgpt): 客户端版本号改为从 npm registry 动态获取</li>
+<li>fix(security): 局域网暴露时无 Key 调用只对本机生效，CORS 支持白名单</li>
+</ul>
+<p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
+<p>应用内更新已指向本仓库的 Release。</p></div></details>
+    </div>
+    <div class="item" id="v2.37.2">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.37.2</div>
+          <div class="meta">2026-11-25 · 1.9 MB · ai-gateway-2.37.2-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.37.2/ai-gateway-2.37.2-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.37.2</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.37.2）</b></p>
+<ul>
+<li>chore(release): 版本号升到 2.37.2</li>
+<li>feat(gateway): 新增 /v1/messages（Anthropic 协议）与本地隐私脱敏</li>
+<li>fix(models): /v1/models 概率空响应，改为快照缓存 + 整轮预算</li>
+<li>fix(codebuddy): 打散 DeepSeek Runtime 等宿主指纹，修掉 11128 渠道拦截</li>
+</ul>
+<p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
+<p>应用内更新已指向本仓库的 Release。</p></div></details>
+    </div>
+    <div class="item" id="v2.37.1">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.37.1</div>
+          <div class="meta">2026-11-25 · 1.9 MB · ai-gateway-2.37.1-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.37.1/ai-gateway-2.37.1-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.37.1</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.37.1）</b></p>
+<ul>
+<li>无应用相关变化</li>
+</ul>
+<p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
+<p>应用内更新已指向本仓库的 Release。</p></div></details>
+    </div>
+    <div class="item" id="v2.36.4">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.36.4</div>
+          <div class="meta">2026-11-25 · 1.9 MB · ai-gateway-2.36.4-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.36.4/ai-gateway-2.36.4-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.36.4</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.36.4）</b></p>
+<ul>
+<li>fix(theme): 移除外观主题页重复的明暗模式</li>
+<li>fix(home): 修复玻璃底栏无模糊，底栏加高，供应商改称供应</li>
+<li>fix(home): 悬浮底栏改为真正的胶囊形</li>
+<li>feat(home): 悬浮底栏改为液态玻璃</li>
+<li>feat(home): 默认布局恢复正式版排列，补上游配额池组件</li>
+<li>refactor(home): 拖拽排序改用 Calvin-LL/Reorderable 库</li>
+</ul>
+<p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
+<p>应用内更新已指向本仓库的 Release。</p></div></details>
+    </div>
+    <div class="item" id="v2.35.4">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.35.4</div>
+          <div class="meta">2026-11-25 · 1.8 MB · ai-gateway-2.35.4-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.35.4/ai-gateway-2.35.4-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.35.4</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.35.4）</b></p>
+<ul>
+<li>fix(home): 拖动中断与双重位移，重写拖拽手势</li>
+</ul>
+<p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
+<p>应用内更新已指向本仓库的 Release。</p></div></details>
+    </div>
+    <div class="item" id="v2.35.3">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.35.3</div>
+          <div class="meta">2026-11-25 · 1.8 MB · ai-gateway-2.35.3-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.35.3/ai-gateway-2.35.3-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.35.3</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.35.3）</b></p>
+<ul>
+<li>fix(home): 编辑态改用 LazyColumn 真实重排，消除重叠与空白</li>
+<li>fix(home): 编辑态组件重叠与空白，重做让位补偿</li>
+<li>feat(home): 拖拽加拾起反馈与让位动画，补回历史板块</li>
+<li>feat(home): 首页组件可编辑，新增悬浮底栏与主题设置页</li>
+<li>refactor(home): 删除实时活动卡，在途请求改由实时通知展示</li>
+<li>feat(home): 首页恢复最近路由记录与上下文容量分布</li>
+<li>refactor(home): 首页 7 块并成 4 块，趋势图移入用量统计</li>
+<li>feat(proxy): 代理支持多套配置、按区域选择与连通性测试</li>
+</ul>
+<p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
+<p>应用内更新已指向本仓库的 Release。</p></div></details>
+    </div>
+    <div class="item" id="v2.32.0">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.32.0</div>
+          <div class="meta">2026-11-25 · 1.8 MB · ai-gateway-2.32.0-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.32.0/ai-gateway-2.32.0-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.32.0</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（2.32.0）</b></p>
+<ul>
+<li>chore(release): versionCode 211（v2.32.0）</li>
+<li>fix(codebuddy): 签到 4xx「今天已签到」归一为成功</li>
+<li>test(checkin): 消除并发夹具 flaky，锁死产品语义而非线程交错</li>
+<li>feat(checkin): 网关服务运行时每日自动签到</li>
+</ul>
+<p>本包由 fork 自动构建，签名与上游不同：不能覆盖安装上游的包（需先卸载），</p>
+<p>应用内更新已指向本仓库的 Release。</p></div></details>
+    </div>
+    <div class="item" id="v2.31.0">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.31.0</div>
+          <div class="meta">2026-11-25 · 1.8 MB · ai-gateway-2.31.0-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.31.0/ai-gateway-2.31.0-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.31.0</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（v2.25.2 → v2.31.0）</b></p>
+<ul>
+<li>fork: 应用内更新源指向本仓库</li>
+<li>chore(release): versionCode 210（v2.31.0）</li>
+<li>feat(ui): 接入设置补上网关行为三项</li>
+<li>feat(ui): 供应商详情页补上启停开关与默认模型</li>
+<li>chore(release): versionCode 209（v2.30.0）</li>
+<li>fix(ui): 其余对话框内容超长时可滚动</li>
+<li>feat(keys): 密钥白名单可从模型列表多选，完整密钥可随时查看复制</li>
+<li>feat(routing): 路由组成员改为多选添加，编辑对话框可滚动</li>
+<li>feat(ui): 多选底部抽屉与对话框滚动容器</li>
+<li>chore(release): versionCode 208（v2.29.1）</li>
+<li>fix(gateway): 修复路由组对外模型 id 被拼成 group/X/X 导致客户端 400</li>
+<li>feat(core): 媒体端点接线、可观测 API 与版本号递增</li>
+<li>feat(core): 图片生成与语音转写端点，供应商按能力声明承接</li>
+<li>feat(app): 客户端密钥、路由组、模型价格、请求改写与账号策略界面</li>
+<li>feat(gateway): 会话亲和、账号策略、路由组、客户端密钥、价格与改写</li>
+<li>fix(antigravity): 对话域名与配额域名分离，修复对话全量 429</li>
+<li>chore(release): versionCode 202（v2.25.2）</li>
+<li>fix(models): 未登录不再被当成模型目录拉取失败</li>
+<li>fix(watchdog): 探活写死 IPv4 回环——之前用 ::1 探 127.0.0.1 的 server，必然误杀</li>
+<li>fix(watchdog): 挂起期间的探活超时不再被误判成引擎死亡</li>
+<li>feat(resume): 划掉任务后 2 秒自愈——用闹钟窗口把前台服务合法拉回来</li>
+<li>fix(restart): 系统重建服务时升不了前台也先把网关跑起来</li>
+<li>feat(resume): 打开应用即恢复上次运行状态</li>
+<li>fix(startup): 引擎启动成功后兜底重拉前台服务</li>
+<li>feat(keepalive): 网关后台自愈——看门狗对账 + START_STICKY + 开机恢复</li>
+<li>chore(pr): 还原更新源与版本号为上游值</li>
+<li>fix(login): 登录期间拉起前台服务，保住本地回调端口</li>
+<li>fix(login): 登录页改用 Custom Tab，修复授权后回调卡死</li>
+<li>feat(chatgpt): 新增 ChatGPT 订阅供应商（Codex 后端，浏览器 OAuth 登录）</li>
+<li>refactor(gateway): 选号循环用许可状态驱动，消除恒假分支</li>
+<li>chore(release): versionCode 201（v2.24.3）</li>
+<li>fix(gateway): 并发连接不再整体卡死，多账号按在途余量分流</li>
+</ul></div></details>
+    </div>
+    <div class="item" id="v2.25.2">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.25.2</div>
+          <div class="meta">2026-11-25 · 1.7 MB · ai-gateway-2.25.2-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.25.2/ai-gateway-2.25.2-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.25.2</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（v2.25.1 → v2.25.2）</b></p>
+<ul>
+<li>fix(watchdog): 探活写死 IPv4 回环——之前用 ::1 探 127.0.0.1 的 server，必然误杀</li>
+<li>fix(watchdog): 挂起期间的探活超时不再被误判成引擎死亡</li>
+<li>feat(resume): 划掉任务后 2 秒自愈——用闹钟窗口把前台服务合法拉回来</li>
+<li>fix(restart): 系统重建服务时升不了前台也先把网关跑起来</li>
+<li>feat(resume): 打开应用即恢复上次运行状态</li>
+<li>fix(startup): 引擎启动成功后兜底重拉前台服务</li>
+<li>feat(keepalive): 网关后台自愈——看门狗对账 + START_STICKY + 开机恢复</li>
+<li>fix(trae): 签到按 enable 提前拦，9090 映射为活动侧不可用（v2.24.2）</li>
+<li>fix(trae): 签到失败提示带上游业务码（v2.24.1）</li>
+<li>feat(codebuddy): 任务达标自动领取，去掉手动领取按钮</li>
+</ul></div></details>
+    </div>
+    <div class="item" id="v2.25.1">
+      <div class="head">
+        <div class="vwrap">
+          <div class="ver">v2.25.1</div>
+          <div class="meta">2026-11-25 · 1.7 MB · ai-gateway-2.25.1-release.apk</div>
+        </div>
+        <a class="btn" href="https://github.com/rdtscx/Android-AI-gateway/releases/download/v2.25.1/ai-gateway-2.25.1-release.apk" download><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg><span>下载 v2.25.1</span></a>
+      </div>
+      <details><summary>更新记录</summary><div class="notes"><p><b>更新内容（首次发布 → v2.25.1）</b></p>
+<ul>
+<li>fix(login): 登录期间拉起前台服务，保住本地回调端口</li>
+<li>fix(login): 登录页改用 Custom Tab，修复授权后回调卡死</li>
+<li>feat(chatgpt): 新增 ChatGPT 订阅供应商（Codex 后端，浏览器 OAuth 登录）</li>
+<li>feat(gateway): HTTP 并发上限与超时、TTFB 与健康窗口落库、权重与模型级熔断、账号冷却（v2.24.0）</li>
+<li>refactor(codebuddy): 任务入口合并为「批量任务」一条链路（v2.23.1）</li>
+<li>fix(codebuddy): 埋点会话对齐真实对话，修 mode/专家模型与异常兜底</li>
+<li>chore(release): versionCode 196（v2.23.0）</li>
+<li>feat(app): 任务中心与账号页加「自动完成任务」入口</li>
+<li>feat(codebuddy): 成长任务支持自动完成（接单→推进→领奖）</li>
+<li>Revert "feat(app): 网关数据面拆入独立 :gateway 进程，主进程经 IPC 访问"</li>
+<li>Revert "perf(app): 主进程只缓存快照派生字段，不再重复持有调用记录"</li>
+<li>perf(app): 主进程只缓存快照派生字段，不再重复持有调用记录</li>
+<li>feat(app): 网关数据面拆入独立 :gateway 进程，主进程经 IPC 访问</li>
+<li>chore(release): versionCode 195（版本号保持 2.22.2）</li>
+<li>feat(accounts): 导出区改为竖排，新增「导出为 JSON」按钮</li>
+<li>chore(release): versionCode 194（版本号保持 2.22.2）</li>
+<li>fix(raccoon): 账号 uid 改按 JWT 声明优先、refresh_token 兜底，修多号互相覆盖</li>
+<li>chore(release): versionCode 193（版本号保持 2.22.2）</li>
+<li>fix(raccoon): 签到改用 setting_info 触发每日发放，修「点了没反应」</li>
+<li>chore(release): 版本号 2.22.2 (versionCode 192)</li>
+<li>fix(antigravity): 配额查询优先 production，残缺 200 不再当最终结果</li>
+<li>chore(release): 版本号 2.22.1 (versionCode 191)</li>
+<li>fix(antigravity): 不再丢弃 disabled 的配额窗口</li>
+<li>chore(release): 版本号 2.22.0 (versionCode 190)</li>
+<li>feat(taskcenter): 接入批量任务，无目标时置灰并说明原因</li>
+<li>chore(release): 版本号 2.21.0 (versionCode 189)</li>
+<li>feat(ui): 公共层补滚动渐隐与可按压卡片，供应商/额度页重排</li>
+<li>chore(release): 版本号 2.20.4 (versionCode 188)</li>
+<li>feat(accounts): 导入粘贴框超 50 字自动折叠，右上角可展开</li>
+<li>chore(release): 版本号 2.20.3 (versionCode 187)</li>
+<li>fix(accounts): 导入区粘贴即识别，导入按钮常驻</li>
+<li>chore(release): 版本号 2.20.2 (versionCode 186)</li>
+<li>fix(codebuddy): 刷新解析与过期时间，修国际版「登录失效」反复发生</li>
+<li>test(failover): 断言对准供应商给出的消息，而不是上游原文</li>
+<li>test(failover): 断言改为按真实主因返回的错误码</li>
+<li>fix(gateway): 对客户端的报错按真实原因给码，不再一律 no_healthy_account</li>
+<li>chore(release): 版本号 2.20.0 (versionCode 184)</li>
+<li>feat(accounts): 账号导入导出，支持供应商+账号两级粒度</li>
+<li>chore(release): 版本号 2.19.1 (versionCode 183)</li>
+<li>fix(taskcenter): 账号多的供应商可折叠，避免挤掉其它账号</li>
+<li>fix(accounts): 退回原顺序后优先标记不再留在别的账号上</li>
+<li>chore(release): 版本号 2.19.0 (versionCode 182)</li>
+<li>feat(ui): 空态与错误态补下一步动作</li>
+<li>feat(ui): 危险操作二次确认</li>
+<li>feat(models): 模型行显示能力标记与倍率</li>
+<li>feat(accounts): 账号支持 ↑↓ 手动排序，排在前面的先用</li>
+<li>chore(release): 版本号 2.18.0 (versionCode 181)</li>
+<li>fix(loomy): 一键完成逐条容错，并展示新手任务明细</li>
+<li>fix(raccoon): 旧账号 uid 自动迁移，不再多账号共用一个 key</li>
+<li>chore(release): 版本号 2.17.0 (versionCode 180)</li>
+<li>fix(raccoon): uid 不再取 JWT iss，修多账号互相覆盖</li>
+<li>feat(home): 拓扑连线改为网关扇出曲线，Token 行标注输入输出</li>
+<li>chore(release): 版本号 2.16.2 (versionCode 179)</li>
+<li>fix(notify): 时长改用系统 chronometer，不再每秒重发通知</li>
+<li>feat(home): 拓扑改为数据驱动的供应商分发视图，修四处截断与冗余</li>
+<li>chore(release): 版本号 2.16.1 (versionCode 178)</li>
+<li>refactor: 清理零引用死代码与收敛重复（core + app）</li>
+<li>fix(raccoon): 签到回执英文转中文</li>
+<li>fix(loomy): 任务动作认通用名 tasks，修按钮与批量落到 unsupported</li>
+<li>chore(release): 版本号 2.16.0 (versionCode 177)</li>
+<li>fix(logs): 记录页胶囊行被挤压换行与头部硬化</li>
+<li>feat(notify): Android 16 实时状态通知与「我的」页 02.8 开关</li>
+<li>feat(home): 实时拓扑卡补齐路由流水、上下文容量与模型明细</li>
+<li>feat(core): 在途请求表与网关打点，修闸门全局计数为负</li>
+<li>fix(signing): debug 签名固定到持久 keystore</li>
+<li>feat(home): 首页新增「实时调度拓扑」动效卡</li>
+<li>chore: 清理确认无引用的死代码与几处名不副实</li>
+<li>fix(codebuddy): 国际版不进批量、登录补齐必需头、成长中心接通接单与领奖</li>
+<li>fix(codebuddy): 成长任务读 data 外层，修成长中心无任务与领取失效</li>
+<li>refactor(antigravity): 额度查询收敛到 CLIProxyAPI 实现并清理死代码</li>
+<li>refactor(antigravity): 额度查询完全对接 CLIProxyAPI</li>
+<li>fix(antigravity): loadCodeAssist 改用 daily 域名与裸 hub UA 并探测身份</li>
+<li>fix(antigravity): 配额端点改用完整 hub UA，403 剥 project 并换域名</li>
+<li>fix(antigravity): 配额 UA 自适应探测，避免 hub 版本号导致 403</li>
+<li>fix(antigravity): 额度查询改用 CLI UA，403 不再误报登录失效</li>
+<li>feat(antigravity): 同步 Gemini 4 Argon 独立配额与禁用窗口</li>
+<li>fix(update): 补 REQUEST_INSTALL_PACKAGES，修应用内安装无法唤起安装器</li>
+<li>fix(update): 测速加整体截止时间，慢镜像不拖住下载</li>
+<li>refactor(update): 应用内更新改回更新弹窗内完成</li>
+<li>feat(update): 应用内更新支持多线路测速与多线程下载</li>
+<li>chore(release): 2.12.1</li>
+<li>fix(ui): 修滚动渐隐黑条与用量页数据重复</li>
+<li>chore(release): 2.12.0</li>
+<li>feat(ui): 用量环形仪表、记录页指标胶囊与折叠动效</li>
+<li>feat(ui): 动效地基——弹簧预设矩阵与滚动渐隐</li>
+<li>docs: 新增第三方来源与致谢清单并补齐代码内来源链接</li>
+<li>chore(release): 2.11.2</li>
+<li>feat(usage): 用量统计补「中断」计数，让请求数对得上</li>
+<li>fix(loomy): chatid 恢复每请求唯一，修 2.11.0 引入的偶发 409</li>
+<li>chore(release): 2.11.1</li>
+<li>fix(ui): 我的页标题不再换行，缓存命中行去掉多余占位符</li>
+<li>chore(release): 2.11.0</li>
+<li>feat(usage): 记录并按提示词缓存命中率展示</li>
+<li>fix(loomy): 会话 id 改按消息前缀派生，不再每请求换缓存桶</li>
+<li>chore(release): 2.10.0</li>
+<li>fix(models,quota,raccoon): 数据来源诚实化与额度中心积分明细</li>
+<li>chore(release): 2.9.18</li>
+<li>feat(codebuddy): 工具 schema 归一化与工具名双向改写</li>
+<li>chore(release): 2.9.17</li>
+<li>feat(failover): 模型级冷却，修熔断误伤与无谓换号</li>
+<li>fix(gateway,codebuddy,raccoon): 纯图响应误判为空、非 SSE 200 吞错、max_completion_tokens 丢失</li>
+<li>fix(gateway,loomy): 上游中断补终止帧、Loomy 补三个追踪头</li>
+<li>chore(release): 2.9.16</li>
+<li>feat(codebuddy,trae): 企业账号门控、11153、刷新单飞、工具 schema $ref 内联</li>
+<li>chore(release): 2.9.15</li>
+<li>fix(codebuddy,loomy,trae,failover): 修国际版会话头缺失与同账号并发卡死</li>
+<li>fix(loomy,trae,codebuddy): 调研确认的三处协议缺口</li>
+<li>fix(antigravity): 客户端版本动态化并降温 invalid_grant (2.9.14)</li>
+<li>fix(ui): 记录页设置面板不再随标签变化 (2.9.13)</li>
+<li>fix(failover): 开关关闭时不再跨供应商转移 (2.9.13)</li>
+<li>fix(app): 代码审查确认的 App 侧四处缺陷 (2.9.12)</li>
+<li>fix: 代码审查确认的四处缺陷</li>
+<li>fix(antigravity): claude 通道不再给思考块挂占位签名 (2.9.11)</li>
+<li>fix(probe): 测速探测不再下发 max_tokens (2.9.10)</li>
+<li>fix(codebuddy): 请求体补齐首条 system 等上游硬性要求 (2.9.9)</li>
+<li>fix(perf): 修每请求刷凭证与目录串行拉取 (2.9.8)</li>
+<li>fix(trae): 国际版 agent host 修正并收敛区域端点定义 (2.9.7)</li>
+<li>fix(workbuddy): 国际版模型目录改用 v2 API 路由 (2.9.6)</li>
+<li>fix(region): 修国际版区域判定与鉴权/代理域名 (2.9.5)</li>
+<li>fix(workbuddy): 修正国际版模型接口区域判定 (2.9.4)</li>
+<li>fix(login): 设备授权轮询沿用创建 state 的区域 (2.9.3)</li>
+<li>fix(trae): 区域判定补 apiHost 兜底并统一走 provider (2.9.2)</li>
+<li>fix(gateway): 区域型供应商按区域分别拉取模型目录 (2.9.1)</li>
+<li>refactor(ui): 删除数据管理页并顺延我的页编号 (2.9.0)</li>
+<li>refactor(ui): 排查诊断挪进日志设置 (2.8.0)</li>
+<li>chore(ui): 移除我的页重复的调用记录归档开关 (2.7.3)</li>
+<li>chore: 版本 2.7.2 (versionCode 135)</li>
+<li>fix(app): 悬浮窗改为网关服务启动后显示</li>
+<li>feat: 悬浮窗随启动显示并限制在屏内、账号添加自动领小浣熊奖励、首字延迟优化</li>
+<li>feat(app): 保活页新增可选的悬浮窗保活</li>
+<li>fix(app): 记录页两个标签都可打开日志设置</li>
+<li>fix(gateway): 修复并发许可泄漏与日志细节问题</li>
+<li>fix(logs): 调用记录详情支持查看完整原文</li>
+<li>feat(app): 并发与容错设置页 + 日志系统完善</li>
+<li>feat(core): 新增并发闸门与日志系统设置项</li>
+<li>docs(raccoon): 订正 PATH_GRANT 注释与动作说明，去掉「每日签到」措辞</li>
+<li>fix(raccoon): 签到补桌面端头并如实反馈，新增积分明细 (2.4.2)</li>
+<li>chore(ui): 删除用量统计页重复的最近调用 (2.4.2)</li>
+<li>fix(gateway): 动作前保鲜凭证，修签到因 token 过期失败</li>
+<li>refactor/perf(2.4.1): 共享代码抽取、消除重复、性能优化、批量签到并发提升</li>
+<li>feat(2.4.0): 流式收尾、折叠闪退修复、WorkBuddy 粘贴导入、账号一账号一 json、账号分页、批量并发</li>
+<li>feat(models): 模型页按供应商分组可折叠（点击分组头展开/收起）(2.3.0)</li>
+<li>fix(models): 模型测试失败原因可点看全文；刷新与远端拉取同步下架模型 (2.2.2)</li>
+<li>fix(antigravity): 收敛 OAuth 刷新频率，修登录频繁失效 (2.2.1)</li>
+<li>feat(models): 模型目录改为按需拉取、取消内置快照，并修掉无意义报错 (2.2.0)</li>
+<li>fix(ui): bouncyClick 缓存最新 onClick，修点击后失效需切页刷新</li>
+<li>feat(models): 新增模型开放名单，勾选的模型才出现在 /v1/models</li>
+<li>fix(trae): 账号列表按服务区域独立显示（国内/国际各自一套）</li>
+<li>chore: 版本 2.0.0 (versionCode 118)</li>
+<li>fix: 代码审查问题批量修复（数据丢失/风控/并发/熔断/体验）(1.8.0)</li>
+<li>fix(checkin): 批量签到跳过 Trae 国际版 + 文案/按钮对齐 (1.7.1)</li>
+<li>refactor(ui): WorkBuddy 登录区合并为 Trae 同款单卡片 (1.7.0)</li>
+<li>feat(trae): 登录入口加国内/国际分段滑块 (1.6.0)</li>
+<li>fix(raccoon): 模型目录改为递归查找数组，不再依赖固定键名 (1.5.3)</li>
+<li>fix(raccoon): 内置模型快照补齐 5 个真实 model id + 目录拉取更宽容 (1.5.2)</li>
+<li>fix(raccoon): 请求体用标准 max_tokens + 模型测试错误截断 (1.5.1)</li>
+<li>feat: 同步 fork 分支优化（Trae 区域化/Loomy 国家码/CodeBuddy 成长中心/区域前缀路由）(1.5.0)</li>
+<li>feat(ui): 模型测试显示真实失败原因 + 探针记失败日志 (1.4.2)</li>
+<li>fix(raccoon): 对话/模型改用 v2 端点（v1 的 model_catalog 是 404） (1.4.1)</li>
+<li>fix(raccoon): 修复网页登录回不来 + 新增签到领积分 (1.4.0)</li>
+<li>feat(raccoon): 切换到 web 通道并接入积分余额 (1.3.0)</li>
+<li>fix(raccoon): 强制上游流式 + 兼容未包裹响应，修复测速超时 (1.2.1)</li>
+<li>feat(raccoon): 接入商汤小浣熊供应商 (1.2.0)</li>
+<li>fix(ui): 移除色彩风格页重复的动态取色设置项；版本 1.1.6 (103)</li>
+<li>perf(ui,core): 动画绘制细节优化与冷启动异步预载</li>
+<li>perf(ui): 消除主线程加密写盘与无效重组，提升点击响应与流畅度</li>
+<li>chore(build): 本地只出 debug 包，release 改为云端手动触发发版</li>
+<li>feat(ui): 外观主题设置（明暗模式、配色方案与金色文字）</li>
+<li>fix(update/checkin): 检查更新改用 GitHub API 地址（原网页地址返回 HTML 解析失败）；批量签到跳过 WorkBuddy 国际版；版本 1.0.1 (96)</li>
+<li>feat(ui): 我的页新增关于区块——手动/自动检查更新(每日一次)、更新日志弹窗与项目地址；版本 1.0.0 (95)</li>
+<li>fix(ui/core): 修复耗时审查发现的 6 项问题并出包 0.1.93 (94)</li>
+<li>test(core): 更新跨天聚合用例为保留历史，并补充 dailyStats 升序补零用例</li>
+<li>feat(ui): 首页遥测指标网格与消耗趋势图对调顺序；版本 0.1.92 (93)</li>
+<li>feat(ui): 黑金极简风重构——首页数据仪表盘(含消耗趋势图/账号就绪环形/较昨日增长)、我的页编辑式排版；新增最近30天每日用量历史</li>
+<li>feat(ui): 落地方案B渐变柔和现代风——紫粉配色、渐变Hero横幅卡、彩色指标点、渐变供应商图标框、毛玻璃底部导航</li>
+<li>fix(gateway): 非法请求体也按详细日志分段记录完整原文，便于排查客户端异常报文 (0.1.91)</li>
+<li>chore: 版本 0.1.90；aapt2 override 指向重建后的 SDK 路径</li>
+<li>chore: 清理冷却机制移除后的过时注释与文档残留，chatCompletions 超限响应前置避免无谓解析</li>
+<li>fix(gateway): 错误响应关闭连接并消费请求体，修复 keep-alive 残留导致的 Missing URI；请求体超限/不完整区分报错并记录诊断现场 (0.1.89)</li>
+<li>perf(ui): 模型页 LazyColumn 虚拟化；自定义供应商拉模型改底部弹窗搜索勾选 (0.1.88)</li>
+<li>feat(proxy): 代理支持 SOCKS5 与地址级排除，设置页对齐系统代理风格 (0.1.87)</li>
+<li>refactor: 移除 Gemini 原生端点，网关对外只提供 OpenAI 兼容协议</li>
+<li>feat(ui): 用量统计 Token 改用方案 C 纵向明细行，解决大数值挤压重叠</li>
+<li>fix(loomy): 余额同步 dailyBalance 兜底，修复额度包有当日赠送但余额仍为一万</li>
+<li>fix(loomy): 额度改回 records 口径（余额=个人/团队+当日剩余），删 404 的 points-summary</li>
+<li>fix(loomy): 额度改用 points-summary 的永久+每日口径，summary 失败不再静默</li>
+<li>feat(codebuddy): 升级服务区域切换为弹性胶囊滑块并移除 MiniMax，版本升至 0.1.81</li>
+<li>feat(minimax): 实现 MiniMax 官方浏览器 OAuth 设备码授权与自动拾取 (0.1.80)</li>
+<li>feat(ui): MiniMax 供应商 UI 与弹性动效实现，版本递增至 0.1.79</li>
+<li>core: 新增 MiniMax 反代供应商（Agent 国内版协议，UI 待接）</li>
+<li>fix(usage): 累计与今日改为独立持久化聚合，不再从调用记录现算 (0.1.78)</li>
+<li>feat(ui): 模型列表流式加载动画与骨架屏实现 (0.1.77)</li>
+<li>模型目录流式加载：各供应商就绪即增量交付，不再等最慢者聚合完毕</li>
+<li>ai-gateway 0.1.40–0.1.76：容灾 failover、安全防护、Gemini 原生端点、多模态与任务中心（基线入库）</li>
+<li>ai-gateway 0.1.39：多供应商聚合网关（Trae/Loomy/WorkBuddy/Antigravity/自定义）</li>
+</ul></div></details>
+    </div></div>
+
+  <footer>
+    <div>安装包文件：ai-gateway-2.38.8-release.apk、ai-gateway-2.38.4-release.apk、ai-gateway-2.38.0-release.apk、ai-gateway-2.37.2-release.apk、ai-gateway-2.37.1-release.apk、ai-gateway-2.36.4-release.apk、ai-gateway-2.35.4-release.apk、ai-gateway-2.35.3-release.apk、ai-gateway-2.32.0-release.apk、ai-gateway-2.31.0-release.apk、ai-gateway-2.25.2-release.apk、ai-gateway-2.25.1-release.apk</div>
+    <div>备份仓库：<a href="https://github.com/rdtscx/Android-AI-gateway">rdtscx/Android-AI-gateway</a> · 上游：<a href="https://github.com/xibai6668/Android-AI-gateway">xibai6668/Android-AI-gateway</a></div>
+    <div class="back"><a href="./">返回站点首页</a></div>
+  </footer>
+</div>
+</body>
+</html>
