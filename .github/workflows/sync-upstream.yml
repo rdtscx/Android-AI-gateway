@@ -147,6 +147,10 @@ jobs:
           set -euo pipefail
           git config user.name "backup-bot"
           git config user.email "backup-bot@users.noreply.github.com"
+          if [ ! -f scripts/build_downloads.py ]; then
+            echo "::error::缺少 scripts/build_downloads.py，下载区无法重建"
+            exit 1
+          fi
           python3 scripts/build_downloads.py
           git add index.html
           if git diff --cached --quiet; then
